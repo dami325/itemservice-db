@@ -66,7 +66,7 @@ public class JdbcTemplateItemRepositoryV1 implements ItemRepository {
 
         try {
             Item item = template.queryForObject(sql, itemRowMapper(), id);
-            return Optional.empty();
+            return Optional.ofNullable(item);
         } catch (EmptyResultDataAccessException e) {
             return Optional.empty();
         }
@@ -108,6 +108,6 @@ public class JdbcTemplateItemRepositoryV1 implements ItemRepository {
             param.add(maxPrice);
         }
         log.info("sql={}", sql);
-        return template.query(sql, itemRowMapper(), param.toArray(), param.toArray());
+        return template.query(sql, itemRowMapper(), param.toArray());
     }
 }
